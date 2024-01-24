@@ -8,7 +8,7 @@ var openLocationCode = new OpenLocationCode();
 
 var raw_gatherings = [];
 var _gatherings = [];
-axios.get("http://localhost:3000/api/gatherings")
+axios.get("/api/gatherings")
   .then(res => {
   raw_gatherings = res.data;
   raw_gatherings?.forEach(({ig_name, ig_link, plus_code}) => { 
