@@ -1,0 +1,1 @@
+export { Gatherings as default } from "./Gatherings";
