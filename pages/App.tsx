@@ -1,7 +1,7 @@
 'use client';
 
 import { useLoadScript } from "@react-google-maps/api";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "../components/Dashboard";
 
 const App = () => {  
   const { isLoaded } = useLoadScript({

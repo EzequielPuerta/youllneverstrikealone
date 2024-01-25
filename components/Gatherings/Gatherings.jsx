@@ -66,7 +66,7 @@ export const Gatherings = () => {
                   setIsOpen(false);
                 }}
               >
-                <a href={infoWindowData.link}><h3>{infoWindowData.name}</h3></a>
+                <a href={infoWindowData.link} target="_blank"><h3>{infoWindowData.name}</h3></a>
               </InfoWindow>
             )}
           </Marker>
