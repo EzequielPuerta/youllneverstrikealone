@@ -1,6 +1,6 @@
 import Head from "next/head";
 import App from "./App";
-
+import { Analytics } from '@vercel/analytics/react';
 
 export default function Home() {
   return (
@@ -12,6 +12,7 @@ export default function Home() {
 
       <main>
         <App />
+        <Analytics />
       </main>
 
       <footer>
