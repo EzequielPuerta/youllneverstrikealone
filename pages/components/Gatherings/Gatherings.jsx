@@ -1,40 +1,42 @@
 'use client';
 
 import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 var OpenLocationCode = require('open-location-code').OpenLocationCode;
 var openLocationCode = new OpenLocationCode();
 
-var raw_gatherings = [];
-var _gatherings = [];
-axios.get("/api/gatherings")
-  .then(res => {
-  raw_gatherings = res.data;
-  raw_gatherings?.forEach(({ig_name, ig_link, plus_code}) => { 
-    var coord = openLocationCode.decode(plus_code);
-    var gather = {
-      "name": ig_name,
-      "link": ig_link,
-      "lat": coord.latitudeCenter,
-      "lng": coord.longitudeCenter,
-    }
-    _gatherings.push(gather);
-  });
-})
-
-const gatherings = _gatherings;
 
 export const Gatherings = () => {
     const [mapRef, setMapRef] = useState();
     const [isOpen, setIsOpen] = useState(false);
     const [infoWindowData, setInfoWindowData] = useState();
-    // const center = useMemo(() => ({ lat: -34.7, lng: -58.5 }), []);
+    const [gatherings, setGatherings] = useState([]);
     
+    useEffect(() => {
+      axios
+         .get("https://you-ll-never-strike-alone-backend.fly.dev/gatherings/?format=json")
+         .then(( response ) => { 
+            const raw_gatherings = response.data;
+            const _gatherings = raw_gatherings.map(({ig_name, ig_link, plus_code}) => { 
+                var coord = openLocationCode.decode(plus_code);
+                return {
+                  "name": ig_name,
+                  "link": ig_link,
+                  "lat": coord.latitudeCenter,
+                  "lng": coord.longitudeCenter,
+                }
+            });
+            setGatherings( _gatherings );
+          })   
+    }, []);
+
     const onMapLoad = (map) => {
       setMapRef(map);
       const bounds = new window.google.maps.LatLngBounds();
-      gatherings?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+      bounds.extend({ lat: 10, lng: -60 });
+      bounds.extend({ lat: -53, lng: -75 });
+      bounds.extend({ lat: 30, lng: 20 });
       map.fitBounds(bounds);
     };
   

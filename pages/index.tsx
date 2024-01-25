@@ -1,32 +1,8 @@
 import Head from "next/head";
-import clientPromise from "../lib/mongodb";
-import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import App from "./App";
 
-type ConnectionStatus = {
-  isConnected: boolean;
-};
 
-export const getServerSideProps: GetServerSideProps<
-  ConnectionStatus
-> = async () => {
-  try {
-    const client = await clientPromise;
-
-    return {
-      props: { isConnected: true },
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      props: { isConnected: false },
-    };
-  }
-};
-
-export default function Home({
-  isConnected,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Home() {
   return (
     <div className="container">
       <Head>

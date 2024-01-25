@@ -8,7 +8,6 @@
   "dependencies": {
     "@react-google-maps/api": "^2.19.2",
     "axios": "^1.6.5",
-    "mongodb": "^4.8.1",
     "next": "latest",
     "open-location-code": "^1.0.3",
     "react": "^18.2.0",
